@@ -1,0 +1,15 @@
+{
+  "name": "picme",
+  "version": "1.0.0",
+  "description": "voting platform",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": ""
+}
