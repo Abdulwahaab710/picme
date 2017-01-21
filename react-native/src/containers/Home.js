@@ -31,5 +31,6 @@ const styles = StyleSheet.create({
     label: {
         alignItems: 'center',
         color: 'black',
-    }
+        textAlign: 'center',
+    },
 });
