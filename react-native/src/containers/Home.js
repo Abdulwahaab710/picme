@@ -1,5 +1,10 @@
 import React from 'react';
-import{ Image } from 'react-native';
+import{
+    Image,
+    StyleSheet,
+    Text,
+    View
+} from 'react-native';
 
 export default class Home extends React.Component {
 
@@ -11,8 +16,20 @@ export default class Home extends React.Component {
 
     render(){
         return (
-            <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-                   style={{width: 400, height: 400}}/>
-        )
+            <View>
+                <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+                style={{width: 400, height: 200}}/>
+                <Text style={styles.label}>
+                    Events
+                </Text>
+            </View>
+        );
     }
 }
+
+const styles = StyleSheet.create({
+    label: {
+        alignItems: 'center',
+        color: 'black',
+    }
+});
