@@ -23,7 +23,7 @@ export default class Home extends React.Component {
             <View style={styles.viewContainer}>
                 <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
                 style={{width: 400, height: 200}}/>
-                <View style={styles.Body}>
+                <View style={styles.viewContainer}>
                     <Text style={styles.label}>
                     Events
                     </Text>
@@ -55,4 +55,9 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         color: 'black',
     },
+    viewContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+    }
 });
