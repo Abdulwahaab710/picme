@@ -28,12 +28,10 @@ export default class Home extends React.Component {
                     Events
                     </Text>
                     <Button
-                        onPress={onButtonPress}
                         style={styles.btn}
                         color="black"
                         title="New"/>
                     <Button
-                        onPress={onButtonPress}
                         style={styles.btn}
                         color="black"
                         title="Join"/>
