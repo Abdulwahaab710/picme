@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 // Imports
-// import Home from './Home';
+import Home from './Home';
 // import Event from './Event';
 // import Vote from './Vote';
 // import Submit from './Submit';
@@ -22,7 +22,7 @@ export default class PicMe extends React.Component {
     switch (route.id) {
       case 'home':
         return (
-          <View navigator={navigator} />
+          <Home navigator={navigator} />
         );
       default:
         return (
