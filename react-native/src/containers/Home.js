@@ -46,6 +46,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         color: 'black',
         textAlign: 'center',
+        fontSize: 25,
+        fontWeight: 'bold',
     },
     btn: {
         borderColor: 'black',
