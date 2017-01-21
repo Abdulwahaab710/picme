@@ -6,6 +6,9 @@ import{
     View,
     Button
 } from 'react-native';
+const onButtonPress = () => {
+      Alert.alert('Button has been pressed!');
+};
 
 export default class Home extends React.Component {
 
@@ -25,13 +28,15 @@ export default class Home extends React.Component {
                     Events
                     </Text>
                     <Button
-                        style={styles.button}
-                        title="New"
-                        color="#841584"/>
+                        onPress={onButtonPress}
+                        style={styles.btn}
+                        color="black"
+                        title="New"/>
                     <Button
-                        style={styles.button}
-                        title="Join"
-                        color="#841584"/>
+                        onPress={onButtonPress}
+                        style={styles.btn}
+                        color="black"
+                        title="Join"/>
                 </View>
             </View>
         );
@@ -44,9 +49,10 @@ const styles = StyleSheet.create({
         color: 'black',
         textAlign: 'center',
     },
-    button: {
+    btn: {
         borderColor: 'black',
         borderStyle: 'solid',
         borderWidth: 2,
+        color: 'black',
     },
 });
