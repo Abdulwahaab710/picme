@@ -4,6 +4,7 @@
   "description": "voting platform",
   "main": "server.js",
   "dependencies": {
+    "body-parser": "^1.16.0",
     "express": "^4.14.0"
   },
   "devDependencies": {},
