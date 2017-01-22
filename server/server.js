@@ -55,13 +55,14 @@ app.post('/event', function(req, res) {
     var end_time = req.body.end_time;
     var description = req.body.description;
 
-    console.log(name);
-
     var collection = db.collection('Event');
-    collection.insert({'name': name, 'start_time': start_time, 'end_time': end_time,
-        'description': description}, function(err, event) {
-        // db.close();
-        res.send("OK");
+    collection.insert({'name': name, 'start_time': start_time, 'end_time': end_time, 'description': description}, function(err, event) {
+    	if (err) {
+    		res.status(404)
+    	}
+    	else {
+        	res.send("OK");
+    	}
     });
 
     // res.send("Post request sucessfully called with values:" + name + start_time + end_time + description);
