@@ -60,8 +60,10 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderStyle: 'solid',
         borderWidth: 2,
-        width: 40,
+        width: 120,
         textAlign: 'center',
+        padding: 10,
+        marginVertical: 5,
     },
     viewContainer: {
         flex: 1,
