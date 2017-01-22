@@ -5,8 +5,15 @@ import {
     View,
     Button,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    Dimensions,
+    ScrollView,
+    Image
 } from 'react-native';
+
+import * as Constants from 'Constants';
+import LinearGradient from 'react-native-linear-gradient';
+const screenWidth = Dimensions.get('window').width;
 
 export default class Event extends React.Component{
     constructor(props) {
@@ -22,11 +29,13 @@ export default class Event extends React.Component{
     render(){
         let eventName = 'Event Name'
         return (
-            <View>
+            <LinearGradient
+                colors={[Constants.Colors.paleBlue, Constants.Colors.darkBlue]}
+                style={{ flex:1, }}>
                 <View
                     style={styles.header}>
                     <TouchableOpacity style={styles.backBtn}>
-                        <Text>{'<'}</Text>
+                        <Text style={styles.headerTxt}>{'<'}</Text>
                     </TouchableOpacity>
                     <Text
                         style={styles.headerTxt}>
@@ -35,6 +44,7 @@ export default class Event extends React.Component{
                 </View>
 
                 <View>
+                    <Text>Description</Text>
                     <TextInput
                         style={styles.description}
                         multiline={true}
@@ -46,15 +56,34 @@ export default class Event extends React.Component{
                 <View
                     style={styles.submissions}>
                     <Text>Submissions</Text>
+                    <ScrollView
+                        horizontal={true}>
+                            <Image
+                                style={styles.imgScroll}
+                                source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}/>
+                            <Image
+                                style={styles.imgScroll}
+                                source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}/>
+                            <Image
+                                style={styles.imgScroll}
+                                source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}/>
+                            <Image
+                                style={styles.imgScroll}
+                                source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}/>
+                            <Image
+                                style={styles.imgScroll}
+                                source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}/>
+
+                    </ScrollView>
                 </View>
 
                 <View
                     style={styles.vote}>
                     <TouchableOpacity style={styles.btnVote}>
-                        <Text style={styles.btnVoteTxt}>Vote</Text>
+                        <Text style={styles.btn}>Vote</Text>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </LinearGradient>
         );
     }
 }
@@ -65,21 +94,33 @@ const styles = StyleSheet.create({
         backgroundColor: 'blue',
         height: 50,
         alignItems: 'center',
+        flexDirection: 'row'
     },
     headerTxt: {
         color: 'white',
         fontSize: 25,
         fontWeight: 'bold',
+        paddingHorizontal: 4
     },
     description: {
         height: 200,
-        borderColor: 'gray',
+        backgroundColor: '#ffffff77',
+        borderColor: Constants.Colors.primaryWhite,
         borderWidth: 1,
         margin: 10,
         paddingHorizontal: 4,
     },
     submissions: {
 
+    },
+    btn: {
+        color: Constants.Colors.primaryWhite,
+        borderColor: Constants.Colors.primaryWhite,
+        borderStyle: 'solid',
+        borderWidth: 1,
+        textAlign: 'center',
+        padding: 10,
+        marginVertical: 5,
     },
     vote: {
 
@@ -94,5 +135,10 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
+    },
+    imgScroll: {
+        width: 150,
+        height: 150,
+        marginHorizontal: 5
     }
 });
