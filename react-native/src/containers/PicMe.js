@@ -7,7 +7,7 @@ import {
 
 // Imports
 import Home from './Home';
-// import Event from './Event';
+import Event from './Event';
 // import Vote from './Vote';
 // import Submit from './Submit';
 import * as Constants from 'Constants';
@@ -23,6 +23,10 @@ export default class PicMe extends React.Component {
       case 'home':
         return (
           <Home navigator={navigator} />
+        );
+      case 'event':
+          return (
+          <Event navigator={navigator} />
         );
       default:
         return (
