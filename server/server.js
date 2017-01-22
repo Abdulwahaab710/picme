@@ -166,10 +166,10 @@ app.get('/random/:id', function(req,res) {
 	  		else {
 	  			len = result.length;
 	  			array = [];
-	  			num1 = Math.round(Math.random()*len) -1;
-	  			num2 = Math.round(Math.random()*len) -1;
+	  			num1 = Math.floor(Math.random()*len);
+	  			num2 = Math.floor(Math.random()*len);
 	  			while(num1 == num2) {
-	  				num2 = Math.round(Math.random()*len) -1;
+	  				num2 = Math.floor(Math.random()*len);
 	  			}
 	  			array.push(result[num1]);
 	  			array.push(result[num2]);
