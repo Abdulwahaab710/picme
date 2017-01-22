@@ -18,6 +18,18 @@ import {viewEvent} from 'actions';
 import * as Constants from 'Constants';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
+const ImagePicker = require('react-native-image-picker');
+
+const screenWidth = Dimensions.get('window').width;
+
+const imagePickerOptions = {
+  title: 'Select submission',
+  mediaType: 'photo',
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  }
+};
 
 class Event extends React.Component {
 
@@ -27,7 +39,22 @@ class Event extends React.Component {
             submissionDataSource: new ListView.DataSource({
                 rowHasChanged: (r1, r2) => r1 !== r2,
             }),
+            loaded: false,
         }
+    }
+
+    componentDidMount() {
+        if (!this.state.loaded) {
+            this._loadEvent();
+        }
+    }
+
+    _loadEvent() {
+        this.setState({
+            loaded: true,
+            submissionDataSource: this.state.submissionDataSource.cloneWithRows(this.props.event.submissions),
+        });
+        console.log('Submissions: ' + JSON.stringify(this.props.event.submissions));
     }
 
     _onBack() {
@@ -45,7 +72,8 @@ class Event extends React.Component {
     _renderSubmission(submission) {
         return (
             <Image
-                style={styles.imgScroll}
+                resizeMode={'cover'}
+                style={styles.submissionImage}
                 source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}} />
         );
     }
@@ -153,6 +181,14 @@ const styles = StyleSheet.create({
     },
     listView: {
         height: 200,
+        marginLeft: Constants.Sizes.Margins.regular,
+    },
+    submissionImage: {
+        marginTop: Constants.Sizes.Margins.regular,
+        height: 200 - Constants.Sizes.Margins.regular * 2,
+        width: 250,
+        // marginLeft: Constants.Sizes.Margins.regular,
+        marginRight: Constants.Sizes.Margins.regular,
     },
     vote: {
         marginLeft: Constants.Sizes.Margins.regular,

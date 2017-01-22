@@ -89,6 +89,7 @@ class Home extends React.Component {
     }
 
     _onSubmitJoinEvent(eventId) {
+        let selectedEvent = null;
         fetch(`${Constants.Server.url}/events/${eventId}`, {
             method: 'GET',
             headers: {
@@ -105,7 +106,26 @@ class Home extends React.Component {
                 if (event == null) {
                     return;
                 }
-                this.props.onViewEvent(event);
+                selectedEvent = event;
+                return fetch(`${Constants.Server.url}/submissions/${eventId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                }});
+            })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return null;
+                }
+            })
+            .then((submissions) => {
+                if (submissions == null) {
+                    return;
+                }
+                selectedEvent.submissions = submissions;
+                this.props.onViewEvent(selectedEvent);
                 this.props.navigator.push({id: 'event'});
                 this._hideModals();
             })

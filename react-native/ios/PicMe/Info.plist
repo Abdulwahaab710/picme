@@ -28,6 +28,10 @@
     <array>
       <string>armv7</string>
     </array>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Required to upload a photo to an event</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Required to take and upload a photo to an event</string>
     <key>UISupportedInterfaceOrientations</key>
     <array>
       <string>UIInterfaceOrientationPortrait</string>
