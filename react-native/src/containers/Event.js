@@ -10,14 +10,17 @@ import {
 export default class Event extends React.Component{
     static get defaultProps(){
         return{
-            title: 'Home'
+            title: 'Event'
         };
     }
 
     render(){
         return (
 
-        )
+        );
     }
 }
 
+const styles = StyleSheet.create({
+
+});
