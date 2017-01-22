@@ -107,15 +107,24 @@ app.post('/upload',function(req,res) {
 	});
 });
 
-app.put('/vote', function(req, res) {
-    var sID1 = req.body.sID1;
-    var sID2 = req.body.sID2;
-    var votes1 = req.body.votes1;
-    var votes2 = req.body.votes2;
-    var eventID = req.body.eventID;
 
+app.put('/vote', function(req, res) {
+    votes = req.body.votes;
+
+    var collection = db.collection('Submission');
+
+    collection.update({'votes': votes + 1}, function(err, event) {
+        if (err) {
+            res.send(err);
+        }
+        else {
+            res.status(201);
+            res.send("OK");
+        }
+    });
     res.send()
 })
+
 
 // app.post('/upload/:photo', function(req, res) {
 // })
