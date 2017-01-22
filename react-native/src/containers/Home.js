@@ -4,7 +4,8 @@ import{
     StyleSheet,
     Text,
     View,
-    Button
+    Button,
+    TouchableOpacity
 } from 'react-native';
 const onButtonPress = () => {
       Alert.alert('Button has been pressed!');
@@ -21,20 +22,23 @@ export default class Home extends React.Component {
     render(){
         return (
             <View style={styles.viewContainer}>
-                <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-                style={{width: 400, height: 200}}/>
+                <Image
+                    source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+                    style={{width: 400, height: 200}}/>
                 <View style={styles.viewContainer}>
                     <Text style={styles.label}>
                     Events
                     </Text>
-                    <Button
-                        style={styles.btn}
-                        color="black"
-                        title="New"/>
-                    <Button
-                        style={styles.btn}
-                        color="black"
-                        title="Join"/>
+                    <TouchableOpacity style={{ alignSelf: 'center' }}>
+                        <Text style={styles.btn}>
+                            New
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ alignSelf: 'center' }}>
+                        <Text style={styles.btn}>
+                            Join
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -49,15 +53,20 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: 'bold',
     },
+    btnText: {
+        padding: 10,
+    },
     btn: {
         borderColor: 'black',
         borderStyle: 'solid',
         borderWidth: 2,
-        color: 'black',
+        width: 40,
+        textAlign: 'center',
     },
     viewContainer: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
+        textAlign: 'center',
     }
 });
