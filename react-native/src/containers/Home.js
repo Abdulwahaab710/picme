@@ -16,7 +16,8 @@ const screenWidth = Dimensions.get('window').width;
 export default class Home extends React.Component {
 
     _onNewEvent() {
-        console.log('Create new event...');
+        // console.log('Create new event...');
+        this.props.navigator.push({id:'event'});
     }
 
     _onJoinEvent() {
@@ -25,12 +26,15 @@ export default class Home extends React.Component {
 
     render() {
         return (
-            <LinearGradient colors={[Constants.Colors.paleBlue, Constants.Colors.darkBlue]} style={styles.viewContainer}>
+            <LinearGradient
+                colors={[Constants.Colors.paleBlue, Constants.Colors.darkBlue]}
+                style={styles.viewContainer}>
                 <Image
                     resizeMode={'contain'}
                     source={require('../../assets/header.png')}
                     style={styles.header} />
-                <TouchableOpacity style={styles.buttonWrapper}>
+                <TouchableOpacity style={styles.buttonWrapper}
+                    onPress={this._onNewEvent.bind(this)}>
                     <Text style={styles.btn}>New</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonWrapper}>
