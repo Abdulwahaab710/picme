@@ -43,7 +43,7 @@ export default class PicMe extends React.Component {
     return (
       <Navigator
           configureScene={this._configureScene}
-          initialRoute={{id: 'vote'}}
+          initialRoute={{id: 'home'}}
           renderScene={this._renderScene}
           style={{flex: 1, backgroundColor: 'white'}} />
     );
