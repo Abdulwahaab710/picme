@@ -136,10 +136,10 @@ class Vote extends React.Component {
                         {this.props.event.name}
                     </Text>
                 </View>
-                <View>
+                <View style={{backgroundColor: 'black'}}>
                     <TouchableOpacity onPress={this._onSubmitVote.bind(this, 0)}>
                         <Image
-                            resizeMode={'cover'}
+                            resizeMode={'contain'}
                             style={styles.comparableImage}
                             source={{uri: this.state.submissions[0]}} />
                     </TouchableOpacity>
@@ -148,7 +148,7 @@ class Vote extends React.Component {
 
                     <TouchableOpacity onPress={this._onSubmitVote.bind(this, 1)}>
                         <Image
-                            resizeMode={'cover'}
+                            resizeMode={'contain'}
                             style={styles.comparableImage}
                             source={{uri: this.state.submissions[1]}}/>
                     </TouchableOpacity>
@@ -160,7 +160,8 @@ class Vote extends React.Component {
 
 const styles = Styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: 'black',
     },
     comparableImage: {
         width: screenWidth,

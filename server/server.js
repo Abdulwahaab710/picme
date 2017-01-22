@@ -89,13 +89,15 @@ app.post('/upload',function(req,res) {
 	var name = req.body.name;
 	//determine how the fuck to store photos
 	var photo = req.body.photo;
+	var width = req.body.width;
+	var height = req.body.height;
 	var description = req.body.description;
 	var eventID = req.body.eventID;
 	var votes = 0;
 
 	var collection = db.collection('Submission');
 
-	collection.insert({'name': name, 'photo':photo, 'description':description, 'eventID':eventID,'votes':votes}, function(err, event) {
+	collection.insert({'name': name, 'photo':photo, 'description':description, 'width': width, 'height': height, 'eventID':eventID,'votes':votes}, function(err, event) {
 		if (err) {
             res.send(err);
     	}

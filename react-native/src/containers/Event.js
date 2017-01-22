@@ -120,10 +120,13 @@ class Event extends React.Component {
     }
 
     _renderSubmission(submission) {
+        const widthRatio = parseInt(submission.width) / parseInt(submission.height);
+        const width = (200 - Constants.Sizes.Margins.regular * 2) * widthRatio;
+
         return (
             <Image
-                resizeMode={'cover'}
-                style={styles.submissionImage}
+                resizeMode={'contain'}
+                style={[styles.submissionImage, {width}]}
                 source={{uri: submission.photo}} />
         );
     }
@@ -290,8 +293,6 @@ const styles = StyleSheet.create({
     submissionImage: {
         marginTop: Constants.Sizes.Margins.regular,
         height: 200 - Constants.Sizes.Margins.regular * 2,
-        width: 250,
-        // marginLeft: Constants.Sizes.Margins.regular,
         marginRight: Constants.Sizes.Margins.regular,
     },
     selectPhoto: {
