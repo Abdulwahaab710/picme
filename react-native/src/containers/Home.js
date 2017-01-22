@@ -1,71 +1,67 @@
 import React from 'react';
 import{
+    Dimensions,
     Image,
     StyleSheet,
     Text,
+    TouchableOpacity,
     View,
-    Button,
-    TouchableOpacity
 } from 'react-native';
+
+import * as Constants from 'Constants';
+import LinearGradient from 'react-native-linear-gradient';
+
+const screenWidth = Dimensions.get('window').width;
 
 export default class Home extends React.Component {
 
-    static get defaultProps(){
-        return{
-            title: 'Home'
-        };
+    _onNewEvent() {
+        console.log('Create new event...');
     }
 
-    render(){
+    _onJoinEvent() {
+        console.log('Join event...');
+    }
+
+    render() {
         return (
-            <View style={styles.viewContainer}>
+            <LinearGradient colors={[Constants.Colors.paleBlue, Constants.Colors.darkBlue]} style={styles.viewContainer}>
                 <Image
-                    source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-                    style={{width: 400, height: 200}}/>
-                <View style={styles.viewContainer}>
-                    <Text style={styles.label}>
-                    Events
-                    </Text>
-                    <TouchableOpacity style={{ alignSelf: 'center' }}>
-                        <Text style={styles.btn}>
-                            New
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{ alignSelf: 'center' }}>
-                        <Text style={styles.btn}>
-                            Join
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+                    resizeMode={'contain'}
+                    source={require('../../assets/header.png')}
+                    style={styles.header} />
+                <TouchableOpacity style={styles.buttonWrapper}>
+                    <Text style={styles.btn}>New</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonWrapper}>
+                    <Text style={styles.btn}>Join</Text>
+                </TouchableOpacity>
+            </LinearGradient>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    label: {
-        alignItems: 'center',
-        color: 'black',
-        textAlign: 'center',
-        fontSize: 25,
-        fontWeight: 'bold',
-    },
-    btnText: {
-        padding: 10,
+    buttonWrapper: {
+        alignSelf: 'center',
     },
     btn: {
-        borderColor: 'black',
+        color: Constants.Colors.primaryWhite,
+        borderColor: Constants.Colors.primaryWhite,
         borderStyle: 'solid',
-        borderWidth: 2,
+        borderWidth: 1,
         width: 120,
         textAlign: 'center',
         padding: 10,
         marginVertical: 5,
     },
+    header: {
+        width: screenWidth,
+        height: screenWidth * 0.4,
+    },
     viewContainer: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        textAlign: 'center',
     }
 });
