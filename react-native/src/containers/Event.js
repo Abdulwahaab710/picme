@@ -16,7 +16,9 @@ export default class Event extends React.Component{
 
     render(){
         return (
-
+            <View>
+                
+            </View>
         );
     }
 }
