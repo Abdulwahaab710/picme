@@ -247,17 +247,17 @@ const styles = StyleSheet.create({
         backgroundColor: Constants.Colors.gray,
     },
     event: {
-        padding: 10,
+        padding: Constants.Sizes.Margins.regular,
     },
     eventName: {
         backgroundColor: 'transparent',
         color: Constants.Colors.primaryBlack,
-        fontSize: 18,
+        fontSize: Constants.Sizes.Text.Body,
     },
     eventDescription: {
         backgroundColor: 'transparent',
         color: Constants.Colors.secondaryBlack,
-        fontSize: 16,
+        fontSize: Constants.Sizes.Text.secondaryBody,
     },
     buttonWrapper: {
         alignSelf: 'center',
@@ -269,21 +269,21 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: 120,
         textAlign: 'center',
-        padding: 10,
+        padding: Constants.Sizes.Margins.regular,
         marginVertical: 5,
     },
     textInput: {
         backgroundColor: Constants.Colors.secondaryWhite,
         height: 40,
-        marginLeft: 10,
-        marginRight: 10,
+        marginLeft: Constants.Sizes.Margins.regular,
+        marginRight: Constants.Sizes.Margins.regular,
     },
     placeholder: {
-        marginLeft: 10,
-        marginTop: 10,
+        marginLeft: Constants.Sizes.Margins.regular,
+        marginTop: Constants.Sizes.Margins.regular,
         backgroundColor: 'transparent',
         color: Constants.Colors.secondaryBlack,
-        fontSize: 16,
+        fontSize: Constants.Sizes.Text.secondaryBody,
     },
     header: {
         width: screenWidth,
