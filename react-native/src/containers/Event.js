@@ -25,13 +25,13 @@ export default class Event extends React.Component{
             <View>
                 <View
                     style={styles.header}>
+                    <TouchableOpacity style={styles.backBtn}>
+                        <Text>{'<'}</Text>
+                    </TouchableOpacity>
                     <Text
                         style={styles.headerTxt}>
                         {eventName}
                     </Text>
-                    <TouchableOpacity style={styles.backBtn}>
-                        <Text>{'<'}</Text>
-                    </TouchableOpacity>
                 </View>
 
                 <View>
@@ -45,6 +45,7 @@ export default class Event extends React.Component{
 
                 <View
                     style={styles.submissions}>
+                    <Text>Submissions</Text>
                 </View>
 
                 <View
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
         borderColor: 'gray',
         borderWidth: 1,
         margin: 10,
-        padding: 4,
+        paddingHorizontal: 4,
     },
     submissions: {
 
