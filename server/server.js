@@ -38,7 +38,7 @@ app.get('/events', function(req,res) {
 });
 
 
-// GET event
+// GET event given an id
 app.get('/events/:id',function(req,res) {
 	var id = req.params.id;
 	//console.log(id)
@@ -64,6 +64,8 @@ app.get('/', function (req, res) {
   res.send('Hello World!')
 })
 
+
+//Endpoint to create a new event
 app.post('/event', function(req, res) {
     var name = req.body.name;
     var start_time = req.body.start_time;
@@ -108,6 +110,7 @@ app.post('/upload',function(req,res) {
 });
 
 
+//Endpoint for incrementing a vote on an image
 app.put('/vote', function(req, res) {
     var id = req.body._id;
 
@@ -129,9 +132,10 @@ app.put('/vote', function(req, res) {
 
 
 // Endpoint for getting sorted array of submissions
-app.get('/submissions', function(req,res) {
+app.get('/submissions/:eventID', function(req,res) {
+    var eventID = req.params.eventID;
     var collection = db.collection('Submission');
-    collection.find().sort({votes:-1}).toArray(function (err, result) {
+    collection.find({eventID: eventID}).sort({votes:-1}).toArray(function (err, result) {
         if (err) {
             res.send(err);
         }
@@ -142,24 +146,6 @@ app.get('/submissions', function(req,res) {
     });
 });
 
-// app.put('/event', function(req, res) {
-//     var id = req.body._id;
-
-//     var collection = db.collection('Submission');
-
-//     collection.find(ObjectId("5884517dfef3d37cb7cd3be3")).toArray(function (err, result) {
-//         v = result[0].votes + 1;
-//         collection.update({'_id': "5884517dfef3d37cb7cd3be3"}, {$set: {'votes': v}}, function(err, event) {
-//             if (err) {
-//                 res.send(err);
-//             }
-//             else {
-//                 res.status(200);
-//                 res.send("OK");
-//             }
-//         });
-//     });
-// })
 
 
 app.listen(8000, function () {
