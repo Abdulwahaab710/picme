@@ -23,6 +23,20 @@ const colors = {
   darkGreyTransparent: '#1D1D1DB2',
 };
 
+const textSize = {
+  title: 24,
+  large: 20,
+  body: 18,
+  secondaryBody: 16,
+  caption: 14,
+};
+
+const marginSize = {
+  compact: 4,
+  regular: 8,
+  expanded: 12,
+};
+
 module.exports = {
   Colors: {
     ...colors,
@@ -32,6 +46,11 @@ module.exports = {
     secondaryWhite: colors.lightBlueTransparent,
     primaryBlack: colors.darkGrey,
     secondaryBlack: colors.darkGreyTransparent,
+  },
+
+  Sizes: {
+    Margins: marginSize,
+    Text: textSize,
   },
 
   Server: {
