@@ -2,6 +2,10 @@
  * @providesModule Constants
  */
 
+const server = {
+  url: 'http://localhost:8000',
+};
+
 const colors = {
   white: '#FFFFFF',
   whiteTransparent: '#FFFFFFB2',
@@ -28,5 +32,9 @@ module.exports = {
     secondaryWhite: colors.lightBlueTransparent,
     primaryBlack: colors.darkGrey,
     secondaryBlack: colors.darkGreyTransparent,
+  },
+
+  Server: {
+    ...server,
   },
 }
