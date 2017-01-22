@@ -109,20 +109,22 @@ app.post('/upload',function(req,res) {
 
 
 app.put('/vote', function(req, res) {
-    votes = req.body.votes;
+    var id = req.body._id;
 
     var collection = db.collection('Submission');
 
-    collection.update({'votes': votes + 1}, function(err, event) {
-        if (err) {
-            res.send(err);
-        }
-        else {
-            res.status(201);
-            res.send("OK");
-        }
+    collection.find(ObjectId("5884517dfef3d37cb7cd3be3")).toArray(function (err, result) {
+        v = result[0].votes + 1;
+        collection.update({'_id': "5884517dfef3d37cb7cd3be3"}, {$set: {'votes': v}}, function(err, event) {
+            if (err) {
+                res.send(err);
+            }
+            else {
+                res.status(200);
+                res.send("OK");
+            }
+        });
     });
-    res.send()
 })
 
 
