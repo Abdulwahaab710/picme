@@ -7,9 +7,6 @@ import{
     Button,
     TouchableOpacity
 } from 'react-native';
-const onButtonPress = () => {
-      Alert.alert('Button has been pressed!');
-};
 
 export default class Home extends React.Component {
 
