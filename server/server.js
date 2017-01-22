@@ -56,17 +56,29 @@ app.post('/event', function(req, res) {
     var description = req.body.description;
 
     var collection = db.collection('Event');
+
     collection.insert({'name': name, 'start_time': start_time, 'end_time': end_time, 'description': description}, function(err, event) {
     	if (err) {
-    		res.status(404)
+            res.send(err);
     	}
     	else {
+            res.status(201);
         	res.send("OK");
     	}
     });
 
     // res.send("Post request sucessfully called with values:" + name + start_time + end_time + description);
 });
+
+app.put('/vote', function(req, res) {
+    var sID1 = req.body.sID1;
+    var sID2 = req.body.sID2;
+    var votes1 = req.body.votes1;
+    var votes2 = req.body.votes2;
+    var eventID = req.body.eventID;
+
+    res.send()
+})
 
 // app.post('/upload/:photo', function(req, res) {
 // })
