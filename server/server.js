@@ -128,8 +128,39 @@ app.put('/vote', function(req, res) {
 })
 
 
-// app.post('/upload/:photo', function(req, res) {
+// Endpoint for getting sorted array of submissions
+app.get('/submissions', function(req,res) {
+    var collection = db.collection('Submission');
+    collection.find().sort({votes:-1}).toArray(function (err, result) {
+        if (err) {
+            res.send(err);
+        }
+        else {
+            res.status(200);
+            res.send(result);
+        }
+    });
+});
+
+// app.put('/event', function(req, res) {
+//     var id = req.body._id;
+
+//     var collection = db.collection('Submission');
+
+//     collection.find(ObjectId("5884517dfef3d37cb7cd3be3")).toArray(function (err, result) {
+//         v = result[0].votes + 1;
+//         collection.update({'_id': "5884517dfef3d37cb7cd3be3"}, {$set: {'votes': v}}, function(err, event) {
+//             if (err) {
+//                 res.send(err);
+//             }
+//             else {
+//                 res.status(200);
+//                 res.send("OK");
+//             }
+//         });
+//     });
 // })
+
 
 app.listen(8000, function () {
   console.log('Example app listening on port 8000!')
