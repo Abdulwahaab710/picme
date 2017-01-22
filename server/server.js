@@ -148,7 +148,38 @@ app.get('/submissions/:eventID', function(req,res) {
     });
 });
 
+// Endpoint for pulling up two random submissions
+app.get('/random/:id', function(req,res) {
+	var id = req.params.id;
 
+	var collection = db.collection('Submission');
+	collection.find({"eventID" : id}).toArray(function (err, result) {
+	  if (err) {
+	    res.send(err);
+	  } else if (result.length) {
+	  		if (result.length < 2) {
+	  			console.log("SHOULDNT HAPPEN")
+	  		}
+	  		else if (result.length == 2) {
+	  			res.send(result);
+	  		}
+	  		else {
+	  			len = result.length;
+	  			array = [];
+	  			num1 = Math.round(Math.random()*len) -1;
+	  			num2 = Math.round(Math.random()*len) -1;
+	  			while(num1 == num2) {
+	  				num2 = Math.round(Math.random()*len) -1;
+	  			}
+	  			array.push(result[num1]);
+	  			array.push(result[num2]);
+	  			res.send(array)
+	  		}
+	  } else {
+		res.status(404)
+	  }
+	});
+});
 
 app.listen(8000, function () {
   console.log('Example app listening on port 8000!')
