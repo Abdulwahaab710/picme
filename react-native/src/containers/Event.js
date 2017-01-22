@@ -55,7 +55,14 @@ export default class Event extends React.Component{
 
                 <View
                     style={styles.submissions}>
-                    <Text>Submissions</Text>
+                    <View
+                        style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                        <Text style={styles.lbl}>Submissions</Text>
+                        <View style={{ flex:1 }}></View>
+                        <TouchableOpacity style={styles.newBtn}>
+                            <Text>New</Text>
+                        </TouchableOpacity>
+                    </View>
                     <ScrollView
                         horizontal={true}>
                             <Image
@@ -96,6 +103,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row'
     },
+    lbl: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold',
+        padding: 2
+    },
     headerTxt: {
         color: 'white',
         fontSize: 25,
@@ -111,7 +124,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 4,
     },
     submissions: {
-
+        marginHorizontal: 9
+    },
+    newBtn: {
+        color: Constants.Colors.primaryWhite,
+        borderColor: Constants.Colors.primaryWhite,
+        borderStyle: 'solid',
+        borderWidth: 1,
+        padding: 10,
+        marginVertical: 5,
+        textAlign: 'right'
     },
     btn: {
         color: Constants.Colors.primaryWhite,
