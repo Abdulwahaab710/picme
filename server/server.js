@@ -22,6 +22,21 @@ MongoClient.connect(url, function (err, database) {
   }
 });
 
+// GET all events
+app.get('/events', function(req,res) {
+	var collection = db.collection('Event');
+	collection.find({}).toArray(function (err, result) {
+		if (err) {
+		    res.send(err);
+		} else if (result.length) {
+		    res.send(result);
+		    console.log("OK")
+		} else {
+			res.status(404)
+		}
+	});
+});
+
 
 // GET event
 app.get('/events/:id',function(req,res) {
