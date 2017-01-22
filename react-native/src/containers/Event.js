@@ -55,6 +55,10 @@ class Event extends React.Component {
         }
     }
 
+    componentDidReceiveProps() {
+        this._loadEvent();
+    }
+
     _loadEvent() {
         this.setState({
             loaded: true,

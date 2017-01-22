@@ -63,6 +63,12 @@ class Vote extends React.Component {
             .catch((err) => console.error(err));
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.event != nextProps.event) {
+            this.props.navigator.pop();
+        }
+    }
+
     _onSubmitVote(submissionIndex) {
         fetch(`${Constants.Server.url}/vote`, {
             method: 'PUT',
@@ -80,6 +86,7 @@ class Vote extends React.Component {
     }
 
     _onBack() {
+        let selectedEvent = null;
         fetch(`${Constants.Server.url}/events/${this.props.event._id}`, {
             method: 'GET',
             headers: {
@@ -114,9 +121,8 @@ class Vote extends React.Component {
                 if (submissions == null) {
                     return;
                 };
-                this.props.onViewEvent(selectedEvent);
                 this.props.onViewSubmissions(submissions);
-                this.props.navigator.pop();
+                this.props.onViewEvent(selectedEvent);
             })
             .catch((err) => console.error(err));
     }
