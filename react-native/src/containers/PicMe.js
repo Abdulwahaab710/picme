@@ -8,7 +8,7 @@ import {
 // Imports
 import Home from './Home';
 import Event from './Event';
-// import Vote from './Vote';
+import Vote from './Vote';
 // import Submit from './Submit';
 import * as Constants from 'Constants';
 
@@ -26,8 +26,12 @@ export default class PicMe extends React.Component {
         );
       case 'event':
           return (
-          <Event navigator={navigator} />
-        );
+            <Event navigator={navigator} />
+          );
+      case 'vote':
+          return (
+            <Vote navigator={navigator} />
+          );
       default:
         return (
           <View />
@@ -39,7 +43,7 @@ export default class PicMe extends React.Component {
     return (
       <Navigator
           configureScene={this._configureScene}
-          initialRoute={{id: 'home'}}
+          initialRoute={{id: 'vote'}}
           renderScene={this._renderScene}
           style={{flex: 1, backgroundColor: 'white'}} />
     );
