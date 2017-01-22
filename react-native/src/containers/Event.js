@@ -44,7 +44,8 @@ export default class Event extends React.Component{
                 </View>
 
                 <View>
-                    <Text>Description</Text>
+                    <Text
+                        style={styles.lbl}>Description</Text>
                     <TextInput
                         style={styles.description}
                         multiline={true}
@@ -55,8 +56,16 @@ export default class Event extends React.Component{
 
                 <View
                     style={styles.submissions}>
-                    <Text>Submissions</Text>
+                    <View
+                        style={{ flexDirection: 'row',justifyContent: 'center', alignItems: 'center', marginRight: 12}}>
+                        <Text style={styles.lbl}>Submissions</Text>
+                        <View style={{ flex:1 }}></View>
+                        <TouchableOpacity style={styles.newBtn}>
+                            <Text>New</Text>
+                        </TouchableOpacity>
+                    </View>
                     <ScrollView
+                        style={{ paddingVertical: 10, marginHorizontal: 8 }}
                         horizontal={true}>
                             <Image
                                 style={styles.imgScroll}
@@ -91,10 +100,16 @@ export default class Event extends React.Component{
 const styles = StyleSheet.create({
     header: {
         marginTop: 20,
-        backgroundColor: 'blue',
+        backgroundColor: Constants.Colors.grey,
         height: 50,
         alignItems: 'center',
         flexDirection: 'row'
+    },
+    lbl: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold',
+        padding: 12
     },
     headerTxt: {
         color: 'white',
@@ -110,8 +125,14 @@ const styles = StyleSheet.create({
         margin: 10,
         paddingHorizontal: 4,
     },
-    submissions: {
-
+    newBtn: {
+        color: Constants.Colors.primaryWhite,
+        borderColor: Constants.Colors.primaryWhite,
+        borderStyle: 'solid',
+        borderWidth: 1,
+        padding: 10,
+        marginVertical: 5,
+        textAlign: 'right'
     },
     btn: {
         color: Constants.Colors.primaryWhite,
@@ -121,9 +142,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         padding: 10,
         marginVertical: 5,
-    },
-    vote: {
-
     },
     btnVote: {
         color: 'black',
