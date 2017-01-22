@@ -7,7 +7,8 @@ var ObjectId = require('mongodb').ObjectID;
 
 var url = 'mongodb://64.137.168.9:27017/PicMe';
 
-app.use(bodyParser())
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 var db;
 
@@ -54,10 +55,6 @@ app.get('/events/:id',function(req,res) {
 	  }
 	});
 });
-
-var bodyParser = require('body-parser');
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 
 app.get('/', function (req, res) {

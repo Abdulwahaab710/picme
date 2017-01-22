@@ -3,6 +3,7 @@ import {
     Dimensions,
     Image,
     ListView,
+    Modal,
     ScrollView,
     StyleSheet,
     Text,
@@ -16,6 +17,7 @@ import {connect} from 'react-redux';
 import {viewEvent} from 'actions';
 
 import * as Constants from 'Constants';
+import Header from 'Header';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
 const ImagePicker = require('react-native-image-picker');
@@ -40,6 +42,10 @@ class Event extends React.Component {
                 rowHasChanged: (r1, r2) => r1 !== r2,
             }),
             loaded: false,
+            showSubmissionModal: false,
+            newName: '',
+            newDescription: '',
+            newImage: '',
         }
     }
 
@@ -54,7 +60,6 @@ class Event extends React.Component {
             loaded: true,
             submissionDataSource: this.state.submissionDataSource.cloneWithRows(this.props.event.submissions),
         });
-        console.log('Submissions: ' + JSON.stringify(this.props.event.submissions));
     }
 
     _onBack() {
@@ -66,7 +71,52 @@ class Event extends React.Component {
     }
 
     _onNewSubmission() {
+        this.setState({
+            showSubmissionModal: true,
+            newName: '',
+            newDescription: '',
+            newImage: null,
+        })
+    }
 
+    _selectImage() {
+        ImagePicker.showImagePicker(imagePickerOptions, (response) => {
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else {
+                this.setState({
+                    newImage: `data:image/jpeg;base64,${response.data}`,
+                });
+            }
+        });
+    }
+
+    _submitNewSubmission() {
+        fetch(`${Constants.Server.url}/upload`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: this.state.newName,
+                description: this.state.newDescription,
+                photo: this.state.newImage,
+                eventID: this.props.event._id,
+            })})
+            .then((response) => {
+                if (response.ok) {
+                    this._hideModal();
+                }
+            })
+            .catch((err) => console.error(err));
+    }
+
+    _hideModal() {
+        this.setState({
+            showSubmissionModal: false,
+        });
     }
 
     _renderSubmission(submission) {
@@ -74,7 +124,48 @@ class Event extends React.Component {
             <Image
                 resizeMode={'cover'}
                 style={styles.submissionImage}
-                source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}} />
+                source={{uri: submission.photo}} />
+        );
+    }
+
+    _renderNewSubmissionModal() {
+        return (
+            <View style={styles.baseModal}>
+                <Header
+                    title={'New submission'}
+                    leftButtonText={'Cancel'}
+                    rightButtonText={'Upload'}
+                    onLeftButtonPress={this._hideModal.bind(this)}
+                    onRightButtonPress={this._submitNewSubmission.bind(this)} />
+                <LinearGradient colors={[Constants.Colors.paleBlue, Constants.Colors.darkBlue]} style={styles.fill}>
+                    <ScrollView>
+                        <View>
+                            <Text style={styles.placeholder}>Name</Text>
+                            <TextInput
+                                style={styles.textInput}
+                                onChangeText={(text) => this.setState({newName: text})}
+                                value={this.state.newName} />
+                            <Text style={styles.placeholder}>Description</Text>
+                            <TextInput
+                                style={styles.textInput}
+                                onChangeText={(text) => this.setState({newDescription: text})}
+                                value={this.state.newDescription} />
+                            <View style={styles.selectPhoto}>
+                                <TouchableOpacity onPress={this._selectImage.bind(this)}>
+                                    <Text style={styles.btn}>Select photo</Text>
+                                </TouchableOpacity>
+                                {this.state.newImage == null
+                                    ? null
+                                    :
+                                    <Image
+                                        resizeMode={'cover'}
+                                        style={styles.newImage}
+                                        source={{uri: this.state.newImage}} />}
+                            </View>
+                        </View>
+                    </ScrollView>
+                </LinearGradient>
+            </View>
         );
     }
 
@@ -83,6 +174,13 @@ class Event extends React.Component {
             <LinearGradient
                 colors={[Constants.Colors.paleBlue, Constants.Colors.darkBlue]}
                 style={{ flex:1, }}>
+                <Modal
+                    animationType={'slide'}
+                    transparent={false}
+                    visible={this.state.showSubmissionModal}
+                    onRequestClose={this._hideModal.bind(this)}>
+                    {this._renderNewSubmissionModal()}
+                </Modal>
                 <View style={styles.header}>
                     <TouchableOpacity onPress={this._onBack.bind(this)}>
                         <Icon
@@ -135,6 +233,9 @@ const styles = StyleSheet.create({
     backBtn: {
         paddingHorizontal: Constants.Sizes.Margins.regular,
     },
+    baseModal: {
+        flex: 1,
+    },
     header: {
         paddingTop: 20,
         backgroundColor: Constants.Colors.grey,
@@ -168,7 +269,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginHorizontal: Constants.Sizes.Margins.regular,
     },
+    newImage: {
+        borderColor: Constants.Colors.primaryWhite,
+        borderWidth: 1,
+        marginTop: Constants.Sizes.Margins.regular,
+        width: screenWidth - Constants.Sizes.Margins.regular * 2,
+        height: screenWidth - Constants.Sizes.Margins.regular * 2,
+    },
     btn: {
+        backgroundColor: 'transparent',
         color: Constants.Colors.primaryWhite,
         borderColor: Constants.Colors.primaryWhite,
         borderStyle: 'solid',
@@ -190,6 +299,9 @@ const styles = StyleSheet.create({
         // marginLeft: Constants.Sizes.Margins.regular,
         marginRight: Constants.Sizes.Margins.regular,
     },
+    selectPhoto: {
+        margin: Constants.Sizes.Margins.regular,
+    },
     vote: {
         marginLeft: Constants.Sizes.Margins.regular,
         marginRight: Constants.Sizes.Margins.regular,
@@ -197,6 +309,19 @@ const styles = StyleSheet.create({
     },
     fill: {
         flex: 1,
+    },
+    textInput: {
+        backgroundColor: Constants.Colors.secondaryWhite,
+        height: 40,
+        marginLeft: Constants.Sizes.Margins.regular,
+        marginRight: Constants.Sizes.Margins.regular,
+    },
+    placeholder: {
+        marginLeft: Constants.Sizes.Margins.regular,
+        marginTop: Constants.Sizes.Margins.regular,
+        backgroundColor: 'transparent',
+        color: Constants.Colors.secondaryBlack,
+        fontSize: Constants.Sizes.Text.secondaryBody,
     },
 });
 
