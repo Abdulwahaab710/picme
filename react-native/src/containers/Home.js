@@ -16,7 +16,7 @@ import{
 
 // Redux imports
 import {connect} from 'react-redux';
-import {viewEvent} from 'actions';
+import {viewEvent, viewSubmissions} from 'actions';
 
 import * as Constants from 'Constants';
 import Header from 'Header';
@@ -123,9 +123,9 @@ class Home extends React.Component {
             .then((submissions) => {
                 if (submissions == null) {
                     return;
-                }
-                selectedEvent.submissions = submissions;
+                };
                 this.props.onViewEvent(selectedEvent);
+                this.props.onViewSubmissions(submissions);
                 this.props.navigator.push({id: 'event'});
                 this._hideModals();
             })
@@ -323,6 +323,7 @@ const select = (store) => {
 const actions = (dispatch) => {
     return {
         onViewEvent: (event) => dispatch(viewEvent(event)),
+        onViewSubmissions: (submissions) => dispatch(viewSubmissions(submissions)),
     };
 };
 

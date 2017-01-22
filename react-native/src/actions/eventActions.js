@@ -3,4 +3,8 @@ module.exports = {
     type: 'VIEW_EVENT',
     event,
   }),
+  viewSubmissions: (submissions) => ({
+    type: 'VIEW_SUBMISSIONS',
+    submissions,
+  }),
 };

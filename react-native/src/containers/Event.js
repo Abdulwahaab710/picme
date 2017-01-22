@@ -58,7 +58,7 @@ class Event extends React.Component {
     _loadEvent() {
         this.setState({
             loaded: true,
-            submissionDataSource: this.state.submissionDataSource.cloneWithRows(this.props.event.submissions),
+            submissionDataSource: this.state.submissionDataSource.cloneWithRows(this.props.submissions),
         });
     }
 
@@ -67,7 +67,7 @@ class Event extends React.Component {
     }
 
     _onVote() {
-
+        this.props.navigator.push({id: 'vote'});
     }
 
     _onNewSubmission() {
@@ -201,8 +201,6 @@ class Event extends React.Component {
                     <Text style={styles.body}>{this.props.event.description}</Text>
                 </View>
 
-                <View style={styles.fill} />
-
                 <View style={styles.submissions}>
                     <View style={styles.submissionHeader}>
                         <Text style={styles.lbl}>Submissions</Text>
@@ -230,11 +228,11 @@ class Event extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    backBtn: {
-        paddingHorizontal: Constants.Sizes.Margins.regular,
-    },
     baseModal: {
         flex: 1,
+    },
+    backBtn: {
+        paddingHorizontal: Constants.Sizes.Margins.regular,
     },
     header: {
         paddingTop: 20,
@@ -242,6 +240,10 @@ const styles = StyleSheet.create({
         height: 80,
         alignItems: 'center',
         flexDirection: 'row'
+    },
+    headerTxt: {
+        color: Constants.Colors.primaryWhite,
+        fontSize: Constants.Sizes.Text.title,
     },
     descriptionHeader: {
         marginHorizontal: Constants.Sizes.Margins.regular,
@@ -252,17 +254,10 @@ const styles = StyleSheet.create({
         color: Constants.Colors.primaryWhite,
         fontSize: Constants.Sizes.Text.large,
     },
-    headerTxt: {
-        color: Constants.Colors.primaryWhite,
-        fontSize: Constants.Sizes.Text.title,
-    },
     body: {
         color: Constants.Colors.primaryBlack,
         fontSize: 16,
         paddingHorizontal: Constants.Sizes.Margins.regular,
-    },
-    description: {
-        height: 200,
     },
     submissionHeader: {
         flexDirection: 'row',
@@ -329,6 +324,7 @@ const styles = StyleSheet.create({
 const select = (store) => {
   return {
       event: store.events.event,
+      submissions: store.events.submissions,
   };
 };
 
