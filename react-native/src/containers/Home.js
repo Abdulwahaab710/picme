@@ -25,7 +25,9 @@ export default class Home extends React.Component {
 
     render() {
         return (
-            <LinearGradient colors={[Constants.Colors.paleBlue, Constants.Colors.darkBlue]} style={styles.viewContainer}>
+            <LinearGradient
+                colors={[Constants.Colors.paleBlue, Constants.Colors.darkBlue]}
+                style={styles.viewContainer}>
                 <Image
                     resizeMode={'contain'}
                     source={require('../../assets/header.png')}
