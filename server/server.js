@@ -107,15 +107,26 @@ app.post('/upload',function(req,res) {
 	});
 });
 
-app.put('/vote', function(req, res) {
-    var sID1 = req.body.sID1;
-    var sID2 = req.body.sID2;
-    var votes1 = req.body.votes1;
-    var votes2 = req.body.votes2;
-    var eventID = req.body.eventID;
 
-    res.send()
+app.put('/vote', function(req, res) {
+    var id = req.body._id;
+
+    var collection = db.collection('Submission');
+
+    collection.find(ObjectId("5884517dfef3d37cb7cd3be3")).toArray(function (err, result) {
+        v = result[0].votes + 1;
+        collection.update({'_id': "5884517dfef3d37cb7cd3be3"}, {$set: {'votes': v}}, function(err, event) {
+            if (err) {
+                res.send(err);
+            }
+            else {
+                res.status(200);
+                res.send("OK");
+            }
+        });
+    });
 })
+
 
 // app.post('/upload/:photo', function(req, res) {
 // })

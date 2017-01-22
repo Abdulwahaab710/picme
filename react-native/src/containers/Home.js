@@ -14,13 +14,17 @@ import{
     View,
 } from 'react-native';
 
+// Redux imports
+import {connect} from 'react-redux';
+import {viewEvent} from 'actions';
+
 import * as Constants from 'Constants';
 import Header from 'Header';
 import LinearGradient from 'react-native-linear-gradient';
 
 const screenWidth = Dimensions.get('window').width;
 
-export default class Home extends React.Component {
+class Home extends React.Component {
 
     constructor() {
         super();
@@ -59,32 +63,53 @@ export default class Home extends React.Component {
     }
 
     _onJoinEvent() {
-        this.setState({
-            joinEventModalVisible: true,
-            joinEventCode: '',
-            eventDataSource: this.state.eventDataSource.cloneWithRows([
-                {
-                    id: 'Event #1',
-                    name: 'Event #1',
-                    description: 'Description of the event',
-                },
-                {
-                    id: 'Event #2',
-                    name: 'Event #2',
-                    description: 'Other description of the event',
-                },
-                {
-                    id: 'Event #3',
-                    name: 'Event #3',
-                    description: 'Third description of an event',
-                },
-            ]),
-        });
+        fetch(`${Constants.Server.url}/events`, {
+            method: 'GET',
+            headers: {
+            'Accept': 'application/json',
+            }})
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return null;
+                }
+            })
+            .then((events) => {
+                if (events == null) {
+                    return;
+                }
+                this.setState({
+                    joinEventModalVisible: true,
+                    joinEventCode: '',
+                    eventDataSource: this.state.eventDataSource.cloneWithRows(events),
+                });
+            })
+            .catch((err) => console.error(err));
     }
 
-    _onSubmitJoinEvent(name) {
-        this._hideModals();
-        this.props.navigator.push({id: 'event'});
+    _onSubmitJoinEvent(eventId) {
+        fetch(`${Constants.Server.url}/events/${eventId}`, {
+            method: 'GET',
+            headers: {
+            'Accept': 'application/json',
+            }})
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return null;
+                }
+            })
+            .then((event) => {
+                if (event == null) {
+                    return;
+                }
+                this.props.onViewEvent(event);
+                this.props.navigator.push({id: 'event'});
+                this._hideModals();
+            })
+            .catch((err) => console.error(err));
     }
 
     _hideModals() {
@@ -144,7 +169,7 @@ export default class Home extends React.Component {
 
     _renderEventRow(event) {
         return (
-            <TouchableOpacity onPress={this._onSubmitJoinEvent.bind(this, event.id)}>
+            <TouchableOpacity onPress={this._onSubmitJoinEvent.bind(this, event._id)}>
                 <View style={styles.event}>
                     <Text style={styles.eventName}>{event.name}</Text>
                     <Text style={styles.eventDescription}>{event.description}</Text>
@@ -160,9 +185,7 @@ export default class Home extends React.Component {
                 <Header
                     title={'Join event'}
                     leftButtonText={'Cancel'}
-                    rightButtonText={'Submit'}
-                    onLeftButtonPress={this._hideModals.bind(this)}
-                    onRightButtonPress={this._onSubmitJoinEvent.bind(this)} />
+                    onLeftButtonPress={this._hideModals.bind(this)} />
                 <LinearGradient colors={[Constants.Colors.paleBlue, Constants.Colors.darkBlue]} style={styles.container}>
                     <ListView
                         dataSource={this.state.eventDataSource}
@@ -270,3 +293,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     }
 });
+
+// Map state to props
+const select = (store) => {
+  return {};
+};
+
+// Map dispatch to props
+const actions = (dispatch) => {
+    return {
+        onViewEvent: (event) => dispatch(viewEvent(event)),
+    };
+};
+
+export default connect(select, actions)(Home);
