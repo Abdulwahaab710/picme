@@ -5,7 +5,7 @@ var bodyParser = require('body-parser')
 var MongoClient = mongodb.MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 
-var url = 'mongodb://64.137.168.9:27017/PicMe';
+var url = '<insert URL here>';
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
